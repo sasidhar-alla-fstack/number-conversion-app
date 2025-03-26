@@ -1,15 +1,18 @@
 package com.numberconversion;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import static com.numberconversion.RomanConstants.NUMBERS;
 import static com.numberconversion.RomanConstants.SYMBOLS;
 
 @Service
+@Log4j2
 public class ConversionServiceImpl implements ConversionService{
 
      public ConversionResponse convertToRoman(int input) throws Exception {
          if (!isValidInput(input)) {
+             log.error("Invalid input: {}, only values allowed are 1 to 3999", input);
              throw new Exception("Invalid input");
          }
         StringBuilder result = new StringBuilder();
@@ -20,7 +23,9 @@ public class ConversionServiceImpl implements ConversionService{
                 result.append(SYMBOLS[i]);
             }
         }
-        return new ConversionResponse(input, result.toString());
+         ConversionResponse response = new ConversionResponse(input, result.toString());
+         log.info("Roman numeral response: {input: {}, output: {}}", response.getInput(), response.getOutput());
+        return response ;
     }
 
     private boolean isValidInput(int value) {
