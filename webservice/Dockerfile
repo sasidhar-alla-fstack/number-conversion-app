@@ -23,6 +23,8 @@ WORKDIR /webservice
 # Copy the built JAR from the build stage
 COPY --from=build webservice/build/libs/*.jar app.jar
 
+RUN mkdir /logs
+
 # Expose port and run the application
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
