@@ -1,7 +1,7 @@
 # Use a multi-stage build for efficiency
 FROM gradle:8.5-jdk17 AS build
 
-WORKDIR /numberconversion-webservice
+WORKDIR /webservice
 
 # Copy Gradle project files
 COPY build.gradle ./
@@ -18,10 +18,10 @@ RUN gradle bootJar --no-daemon
 
 # Use a lightweight JDK for the final image
 FROM openjdk:17-jdk-slim
-WORKDIR /numberconversion-webservice
+WORKDIR /webservice
 
 # Copy the built JAR from the build stage
-COPY --from=build numberconversion-webservice/build/libs/*.jar app.jar
+COPY --from=build webservice/build/libs/*.jar app.jar
 
 # Expose port and run the application
 EXPOSE 8080

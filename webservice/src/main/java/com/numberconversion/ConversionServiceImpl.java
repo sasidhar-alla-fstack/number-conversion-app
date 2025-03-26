@@ -13,9 +13,10 @@ public class ConversionServiceImpl implements ConversionService{
              throw new Exception("Invalid input");
          }
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < NUMBERS.length; i++) {
-            while (input >= NUMBERS[i]) {
-                input -= NUMBERS[i];
+         int currentValue = input;
+         for (int i = 0; i < NUMBERS.length; i++) {
+            while (currentValue >= NUMBERS[i]) {
+                currentValue -= NUMBERS[i];
                 result.append(SYMBOLS[i]);
             }
         }
